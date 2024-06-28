@@ -16,8 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 //	@Query(value=" selet * from user where name=:name and password=:password",nativeQuery = true)
 	User findOneByNameAndPassword(String name, String password);
 
-	User findOneByContact(String auth); 
-
 	
 	
 }

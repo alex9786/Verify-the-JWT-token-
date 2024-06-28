@@ -1,9 +1,7 @@
 package com.example.authentication.service;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-
+import java.util.Optional;
 import com.example.authentication.Dto.LoginDto;
 import com.example.authentication.Dto.SignUpDto;
 import com.example.authentication.common.UserResponse;
@@ -16,8 +14,15 @@ public interface UserService {
 	UserResponse login(LoginDto logindto);
 
 	UserResponse get(String auth) throws Exception;
-
+	
+	
 	List<User> getAll();
+
+	Optional<User> getUser(Long id);
+
+	
+
+	
 
 
 

@@ -1,11 +1,8 @@
 package com.example.authentication.common;
 
 import java.util.Date;
-
 import org.springframework.stereotype.Component;
-
 import com.example.authentication.entity.User;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,19 +25,19 @@ public class JwtToken {
 		claims.put("name", user.getName());
 		claims.put("emailid", user.getEmailId());
 		claims.put("contact", user.getContact());
+		claims.put("gender", user.getGender());
 		return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
-	
-	public void verify(String authorization) throws Exception {
+	public Claims verify(String authorization) throws Exception {
 		try {
-			Jwts.parser().setSigningKey(secret).parseClaimsJws(authorization);
+			Claims claim = Jwts.parser().setSigningKey(secret).parseClaimsJws(authorization).getBody();
+			return claim;
+
 		} catch (Exception e) {
 			throw new Exception();
 		}
 	}
 	
-	
-	
-	
+
 }

@@ -3,12 +3,14 @@ package com.example.authentication.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.authentication.Dto.LoginDto;
+import com.example.authentication.Dto.RequestDto;
 import com.example.authentication.Dto.SignUpDto;
 import com.example.authentication.common.JwtToken;
 import com.example.authentication.common.UserResponse;
@@ -25,6 +27,10 @@ public class UserServiceImp implements UserService {
 
 	@Autowired
 	JwtToken jwtToken;
+	
+	@Autowired
+	RequestDto requestDto;
+	
 
 	@Override
 	public UserResponse signUp(SignUpDto signDto) {
@@ -72,7 +78,6 @@ public class UserServiceImp implements UserService {
 			userResponse.setStatus(HttpStatus.OK.value());
 			userResponse.setData("this is valid token");
 			return userResponse;
-
 		} catch (Exception e) {
 			userResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
 			userResponse.setError("This is unvalid token");
@@ -81,9 +86,17 @@ public class UserServiceImp implements UserService {
 		}
 	}
 
+	
 	@Override
 	public List<User> getAll() {
-		return userRepo.findAll();
+		List<User> entity=userRepo.findAll();
+		System.out.println(requestDto.getName());
+		return entity;
+	}
+
+	@Override
+	public Optional<User> getUser(Long id) {	
+		return userRepo.findById(id);
 	}
 
 }
